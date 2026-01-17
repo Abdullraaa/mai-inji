@@ -1,0 +1,78 @@
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Changes to be committed:
+#	modified:   next.config.ts
+#	modified:   package-lock.json
+#	modified:   package.json
+#	new file:   public/flyers/flyer-bold-flavors-await-you-1.gif
+#	new file:   public/flyers/flyer-bold-flavors-await-you.gif
+#	new file:   public/flyers/flyer-mai-inji-delights-1.gif
+#	new file:   public/flyers/flyer-mai-inji-delights.gif
+#	new file:   public/logo/afro-fusion-fast-food-logo-3-mai-inji.png
+#	new file:   public/logo/afro-fusion-fast-food-logo-with-burrito.png
+#	new file:   public/logo/artisan-backup.png
+#	new file:   public/logo/artisan-logo.png
+#	new file:   public/logo/intro-logo-triad.png
+#	new file:   public/logo/logo-burrito.png
+#	new file:   public/logo/logo-collection.png
+#	new file:   public/logo/logo-skewers.png
+#	new file:   public/logo/logo-wordmark.png
+#	new file:   public/logo/mai_inji_logo1.png
+#	new file:   src/app/admin/dashboard/page.tsx
+#	new file:   src/app/admin/login/page.tsx
+#	new file:   src/app/admin/logout/page.tsx
+#	new file:   src/app/cart/page.tsx
+#	new file:   src/app/checkout/page.tsx
+#	new file:   src/app/components/Footer.tsx
+#	new file:   src/app/components/Header.tsx
+#	new file:   src/app/components/HomeClient.tsx
+#	new file:   src/app/components/ToastProvider.tsx
+#	new file:   src/app/components/ui/Button.tsx
+#	new file:   src/app/components/ui/ErrorBoundary.tsx
+#	modified:   src/app/globals.css
+#	modified:   src/app/layout.tsx
+#	new file:   src/app/menu/page.tsx
+#	new file:   src/app/orders/[id]/page.tsx
+#	modified:   src/app/page.tsx
+#	new file:   src/components/AdminDashboard.tsx
+#	new file:   src/components/CartItemList.tsx
+#	new file:   src/components/CartSummary.tsx
+#	new file:   src/components/CheckoutForm.tsx
+#	new file:   src/components/MenuBrowser.tsx
+#	new file:   src/components/MenuItemCard.tsx
+#	new file:   src/components/OrderStatusDisplay.tsx
+#	new file:   src/hooks/useOrders.ts
+#	new file:   src/lib/animation.ts
+#	new file:   src/lib/assets.ts
+#	new file:   src/lib/env.ts
+#	new file:   src/lib/formatters.ts
+#	new file:   src/lib/utils.ts
+#	new file:   src/lib/variants.ts
+#	new file:   src/lib/whatsapp.ts
+#	new file:   src/services/api.ts
+#	new file:   src/services/authService.ts
+#	new file:   src/services/menuService.ts
+#	new file:   src/services/orderService.ts
+#	new file:   src/services/paymentService.ts
+#	new file:   src/store/authStore.ts
+#	new file:   src/store/cartStore.ts
+#	new file:   src/types/api.ts
+#	new file:   tailwind.config.ts
+#	modified:   tsconfig.json
+#
+# Changes not staged for commit:
+#	modified:   src/app/admin/login/page.tsx
+#	modified:   src/app/layout.tsx
+#	modified:   src/components/AdminDashboard.tsx
+#	modified:   src/components/OrderStatusDisplay.tsx
+#	modified:   src/hooks/useOrders.ts
+#	modified:   src/lib/env.ts
+#	modified:   src/services/api.ts
+#	modified:   src/services/authService.ts
+#	modified:   src/services/menuService.ts
+#	modified:   src/services/orderService.ts
+#	modified:   src/services/paymentService.ts
+#
