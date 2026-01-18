@@ -1,8 +1,6 @@
-'use client';
-
 import { CartItem } from '@/types/api';
-import { formatCurrency } from '@/lib/utils';
-import { useCart } from '@/store/cartStore';
+import Link from 'next/link';
+import CartItemRow from './CartItemRow';
 
 interface CartItemListProps {
   items: CartItem[];
@@ -10,7 +8,13 @@ interface CartItemListProps {
 }
 
 export default function CartItemList({ items, showSubtotals = true }: CartItemListProps) {
-  const { removeItem, updateQuantity } = useCart();
+  // We don't need actions here anymore, only items are passed in props.
+  // Actually, wait, the parent passes 'items'.
+  // If we need nothing from store here, we can remove useCart hook effectively?
+  // But wait, the component was using useCart for actions. Now rows handle actions.
+  // So we can remove useCart import if not used?
+  // Let's check original file. It used useCart for removeItem/updateQuantity.
+  // Now CartItemRow handles that.
 
   if (items.length === 0) {
     return (
@@ -23,53 +27,7 @@ export default function CartItemList({ items, showSubtotals = true }: CartItemLi
   return (
     <div className="space-y-4">
       {items.map((item) => (
-        <div key={item.menu_item_id} className="card p-4 flex items-center justify-between">
-          <div className="flex-1">
-            <h3 className="font-semibold text-gray-900">{item.menu_item_name}</h3>
-            <p className="text-sm text-gray-600">{formatCurrency(item.unit_price)} each</p>
-            {showSubtotals && (
-              <p className="text-sm font-medium text-green-600 mt-1">
-                Subtotal: {formatCurrency(item.unit_price * item.quantity)}
-              </p>
-            )}
-          </div>
-
-          <div className="flex items-center gap-4">
-            {/* Quantity Control */}
-            <div className="flex items-center border border-gray-300 rounded-lg bg-white">
-              <button
-                onClick={() => updateQuantity(item.menu_item_id, item.quantity - 1)}
-                className="px-2 py-1 text-gray-600 hover:bg-gray-100"
-              >
-                −
-              </button>
-              <input
-                type="number"
-                min="1"
-                value={item.quantity}
-                onChange={(e) => {
-                  const newQty = parseInt(e.target.value) || 1;
-                  updateQuantity(item.menu_item_id, newQty);
-                }}
-                className="w-10 text-center border-0 focus:outline-none"
-              />
-              <button
-                onClick={() => updateQuantity(item.menu_item_id, item.quantity + 1)}
-                className="px-2 py-1 text-gray-600 hover:bg-gray-100"
-              >
-                +
-              </button>
-            </div>
-
-            {/* Remove Button */}
-            <button
-              onClick={() => removeItem(item.menu_item_id)}
-              className="text-red-600 hover:text-red-700 font-medium px-3 py-1"
-            >
-              Remove
-            </button>
-          </div>
-        </div>
+        <CartItemRow key={item.menu_item_id} item={item} showSubtotals={showSubtotals} />
       ))}
     </div>
   );

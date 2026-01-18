@@ -1,73 +1,45 @@
 @import "tailwindcss";
 
-/* 
- * NOTE: Using Tailwind CSS v4 syntax.
- * If your IDE shows warnings for @theme or @apply, please ensure you have 
- * the 'Tailwind CSS IntelliSense' extension updated to support v4.
- */
+@theme {
+  --color-brand-primary: #16a34a;
+  --color-cream: #e3d2c1;
+  --color-burgundy: #9e2718;
+  --color-orange: #f97300;
+  --color-darkred: #800000;
+
+  --ease-organic: cubic-bezier(0.16, 1, 0.3, 1);
+}
 
 :root {
-  --background: #fafafa;
-  --foreground: #111111;
-  --primary: #16a34a;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-brand-primary: var(--primary);
+  --cream: #e3d2c1;
+  --burgundy: #9e2718;
+  --orange: #f97300;
+  --darkred: #800000;
   --font-sans: var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
-  --font-display: var(--font-outfit), sans-serif;
-
-  --animate-scroll: scroll 30s linear infinite;
-
-  @keyframes scroll {
-    from {
-      transform: translateX(0);
-    }
-
-    to {
-      transform: translateX(-50%);
-    }
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #050505;
-    --foreground: #f0f0f0;
-  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background:
+    radial-gradient(1200px 600px at 10% 0%, rgba(249, 115, 0, 0.12), transparent 55%),
+    radial-gradient(900px 500px at 90% 20%, rgba(158, 39, 24, 0.14), transparent 60%),
+    var(--cream);
+  color: #1f1f1f;
   font-family: var(--font-sans);
   overflow-x: hidden;
 }
 
-/* Custom Afro-Modern Utilities */
 .glass {
-  @apply bg-white/70 dark:bg-black/70 backdrop-blur-xl border border-white/20 dark:border-white/10;
+  background: rgba(255, 255, 255, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 20px;
 }
 
 .text-gradient {
-  @apply text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-400;
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Remove default input spinners */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type='number'] {
-  appearance: textfield;
-  -moz-appearance: textfield;
+  background: linear-gradient(90deg, var(--burgundy), var(--orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

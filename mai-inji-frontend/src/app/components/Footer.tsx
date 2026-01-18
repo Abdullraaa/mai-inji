@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200 py-16 border-t border-gray-100 dark:border-gray-900 relative overflow-hidden">
+        <footer className="bg-[var(--cream)] text-gray-800 py-16 border-t border-gray-200 relative overflow-hidden">
             {/* Ambient Rotating H2 Logo Accent */}
             <motion.div
                 className="absolute -top-24 -right-24 w-96 h-96 pointer-events-none select-none z-0"

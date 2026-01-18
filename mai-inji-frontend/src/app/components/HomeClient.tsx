@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from 'next/link';
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import toast from "react-hot-toast";
 import Button from "./ui/Button";
 import { MAIN_FLYER, ABOUT_GIF, LOGO_COLLECTION, LOGO_SKEWERS } from "../../lib/assets";
@@ -15,57 +15,59 @@ import {
     aboutTextVariant
 } from "../../lib/variants";
 
+// Static data moved outside to prevent re-creation on every render
+const MENU_ITEMS_DATA = [
+    {
+        name: "Shawarma",
+        price: "₦2,500",
+        desc: "Authentic spiced chicken wrapped in toasted pita with our secret garlic sauce.",
+        tag: "Best Seller"
+    },
+    {
+        name: "Burger",
+        price: "₦3,500",
+        desc: "Double-patty artisan beef burger with caramelized onions and signature glaze.",
+        tag: "Premium"
+    },
+    {
+        name: "Zobo",
+        price: "₦800",
+        desc: "Refreshing chilled Hibiscus nectar infused with ginger and locally sourced cloves.",
+        tag: "Cooler"
+    },
+    {
+        name: "Tigernut",
+        price: "₦1,200",
+        desc: "Creamy Kunun Aya made from fresh tigernuts and dates. Energy in a bottle.",
+        tag: "Natural"
+    },
+    {
+        name: "Yoghurt",
+        price: "₦1,500",
+        desc: "Velvety smooth artisan yoghurt with a hint of honey and vanilla.",
+        tag: "Sweet"
+    },
+    {
+        name: "Arabian Tea",
+        price: "₦1,000",
+        desc: "Fragrant blend of Middle Eastern tea leaves, cardamon, and mint. Served hot.",
+        tag: "Classic"
+    },
+    {
+        name: "Masa",
+        price: "₦2,000",
+        desc: "Soft, fermented rice cakes pan-fried to golden perfection. Served with spicy syrup.",
+        tag: "Traditional"
+    },
+    {
+        name: "Suya",
+        price: "₦3,000",
+        desc: "Flame-grilled beef skewers coated in traditional Yaji spice. The soul of the street.",
+        tag: "Must Try"
+    }
+];
+
 export default function HomeClient() {
-    const menuItems = [
-        {
-            name: "Shawarma",
-            price: "₦2,500",
-            desc: "Authentic spiced chicken wrapped in toasted pita with our secret garlic sauce.",
-            tag: "Best Seller"
-        },
-        {
-            name: "Burger",
-            price: "₦3,500",
-            desc: "Double-patty artisan beef burger with caramelized onions and signature glaze.",
-            tag: "Premium"
-        },
-        {
-            name: "Zobo",
-            price: "₦800",
-            desc: "Refreshing chilled Hibiscus nectar infused with ginger and locally sourced cloves.",
-            tag: "Cooler"
-        },
-        {
-            name: "Tigernut",
-            price: "₦1,200",
-            desc: "Creamy Kunun Aya made from fresh tigernuts and dates. Energy in a bottle.",
-            tag: "Natural"
-        },
-        {
-            name: "Yoghurt",
-            price: "₦1,500",
-            desc: "Velvety smooth artisan yoghurt with a hint of honey and vanilla.",
-            tag: "Sweet"
-        },
-        {
-            name: "Arabian Tea",
-            price: "₦1,000",
-            desc: "Fragrant blend of Middle Eastern tea leaves, cardamon, and mint. Served hot.",
-            tag: "Classic"
-        },
-        {
-            name: "Masa",
-            price: "₦2,000",
-            desc: "Soft, fermented rice cakes pan-fried to golden perfection. Served with spicy syrup.",
-            tag: "Traditional"
-        },
-        {
-            name: "Suya",
-            price: "₦3,000",
-            desc: "Flame-grilled beef skewers coated in traditional Yaji spice. The soul of the street.",
-            tag: "Must Try"
-        }
-    ];
 
     const handleAddToCart = (item: string) => {
         toast.success(`Added ${item} to cart`, {
@@ -105,52 +107,54 @@ export default function HomeClient() {
                 </div>
 
                 <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-start">
-                    <motion.span
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.5 }}
-                        className="text-white bg-green-600/90 px-4 py-1 text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6"
-                    >
-                        Now Serving Lafia
-                    </motion.span>
-                    <motion.h1
-                        variants={heroTextVariant}
-                        initial="hidden"
-                        animate="visible"
-                        className="text-6xl md:text-8xl font-black text-white mb-6 leading-tight max-w-4xl tracking-tight"
-                    >
-                        FLAVOR THAT <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">FEELS LIKE</span> HOME.
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8, duration: 0.8 }}
-                        className="text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed"
-                    >
-                        Experience the intersection of Afro-fusion spices and artisan fast food shortcuts. We don't just feed you; we tell a story.
-                    </motion.p>
-                    <div className="flex flex-wrap gap-6">
-                        <Link href="/menu">
-                            <motion.div
-                                variants={ctaPulseVariant}
-                                initial="initial"
-                                animate="animate"
-                            >
-                                <Button variant="primary" size="lg">Order Now</Button>
-                            </motion.div>
-                        </Link>
-                        <Link href="/about">
-                            <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-md">
-                                Our Story
-                            </Button>
-                        </Link>
+                    <div className="glass p-10 md:p-14 max-w-4xl">
+                        <m.span
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.5 }}
+                            className="text-white bg-green-600/90 px-4 py-1 text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6"
+                        >
+                            Now Serving Lafia
+                        </m.span>
+                        <m.h1
+                            variants={heroTextVariant}
+                            initial="hidden"
+                            animate="visible"
+                            className="text-gradient text-5xl md:text-7xl font-black tracking-tight mb-6 leading-tight max-w-4xl"
+                        >
+                            FLAVOR THAT <span className="text-gray-900 dark:text-white">FEELS LIKE</span> HOME.
+                        </m.h1>
+                        <m.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.8, duration: 0.8 }}
+                            className="text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed"
+                        >
+                            Experience the intersection of Afro-fusion spices and artisan fast food shortcuts. We don't just feed you; we tell a story.
+                        </m.p>
+                        <div className="flex flex-wrap gap-6">
+                            <Link href="/menu">
+                                <m.div
+                                    variants={ctaPulseVariant}
+                                    initial="initial"
+                                    animate="animate"
+                                >
+                                    <Button variant="primary" size="lg" className="bg-[var(--orange)] text-white hover:bg-[var(--burgundy)] border-none">Order Now</Button>
+                                </m.div>
+                            </Link>
+                            <Link href="/about">
+                                <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10 backdrop-blur-md">
+                                    Our Story
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* Brand Marquee using secondary logos */}
             <section className="py-12 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-hidden relative">
-                <div className="flex animate-scroll whitespace-nowrap items-center">
+                <div className="flex animate-scroll whitespace-nowrap items-center will-change-transform">
                     {[1, 2, 3, 4].map((i) => (
                         <div key={i} className="flex gap-16 items-center px-8 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
                             <Image src={LOGO_COLLECTION} alt="Collection" width={80} height={30} className="object-contain" />
@@ -171,27 +175,27 @@ export default function HomeClient() {
                     <Link href="/menu" className="text-green-600 font-bold hover:underline mb-2">View Full Menu →</Link>
                 </div>
 
-                <motion.div
+                <m.div
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
                     variants={menuCardContainer}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
                 >
-                    {menuItems.map((item) => (
-                        <motion.div
+                    {MENU_ITEMS_DATA.map((item) => (
+                        <m.div
                             key={item.name}
                             variants={menuCardVariant}
                             whileHover="hover"
                             whileTap="tap"
-                            className="group bg-white dark:bg-gray-900 rounded-[2.5rem] p-10 shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:shadow-green-600/10 hover:border-green-600/20 transition-colors duration-500"
+                            className="group glass p-6 hover:scale-[1.01] transition-all duration-300 relative overflow-hidden"
                         >
-                            <motion.div variants={menuItemHover} className="h-full flex flex-col">
+                            <m.div variants={menuItemHover} className="h-full flex flex-col">
                                 <div className="flex justify-between items-start mb-6">
                                     <span className="px-4 py-1.5 bg-gray-50 dark:bg-gray-800 text-[10px] font-black uppercase tracking-widest text-gray-500 rounded-full group-hover:bg-green-600 group-hover:text-white transition-colors">
                                         {item.tag}
                                     </span>
-                                    <span className="text-xl font-black text-green-600">{item.price}</span>
+                                    <span className="text-xl font-black text-[var(--orange)]">{item.price}</span>
                                 </div>
                                 <h3 className="text-2xl font-black mb-4 text-gray-900 dark:text-white tracking-tight leading-none">{item.name}</h3>
                                 <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
@@ -200,15 +204,15 @@ export default function HomeClient() {
                                 <Button
                                     variant="secondary"
                                     size="sm"
-                                    className="w-full bg-gray-50 dark:bg-gray-800 hover:bg-green-600 hover:text-white shadow-none"
+                                    className="w-full bg-gray-50 dark:bg-gray-800 hover:bg-[var(--orange)] hover:text-white shadow-none"
                                     onClick={() => handleAddToCart(item.name)}
                                 >
                                     Add to Cart
                                 </Button>
-                            </motion.div>
-                        </motion.div>
+                            </m.div>
+                        </m.div>
                     ))}
-                </motion.div>
+                </m.div>
                 <p className="mt-12 text-center text-xs text-gray-400 italic">
                     * All descriptions and prices are AI-generated placeholders for visual demonstration.
                 </p>
@@ -220,7 +224,7 @@ export default function HomeClient() {
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="flex flex-col md:flex-row items-center gap-16">
                         <div className="md:w-1/2 group">
-                            <motion.div
+                            <m.div
                                 variants={aboutImageVariant}
                                 initial="hidden"
                                 whileInView="visible"
@@ -236,9 +240,9 @@ export default function HomeClient() {
                                     unoptimized={true}
                                 />
                                 <div className="absolute inset-0 bg-green-600/10 mix-blend-overlay" />
-                            </motion.div>
+                            </m.div>
                         </div>
-                        <motion.div
+                        <m.div
                             className="md:w-1/2"
                             variants={aboutTextVariant}
                             initial="hidden"
@@ -267,7 +271,7 @@ export default function HomeClient() {
                                     <p className="text-white/60 text-sm leading-relaxed">Modern aesthetics meet traditional soul in every corner of our craft.</p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </m.div>
                     </div>
                 </div>
 
@@ -307,3 +311,4 @@ export default function HomeClient() {
         </main>
     );
 }
+

@@ -2,32 +2,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState } from "react";
+import { m, useScroll, useMotionValueEvent } from "framer-motion";
+import { useState, memo } from "react";
 import Button from "./ui/Button";
 import { LOGO_PRIMARY } from "../../lib/assets";
 import { logoVariant, headerVariant } from "../../lib/variants";
 
-export default function Header() {
+const Header = memo(function Header() {
     const pathname = usePathname();
     const isHome = pathname === "/";
     const { scrollY } = useScroll();
     const [scrolled, setScrolled] = useState(false);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        setScrolled(latest > 50);
+        const isScrolled = latest > 20;
+        if (scrolled !== isScrolled) {
+            setScrolled(isScrolled);
+        }
     });
 
     return (
-        <motion.header
+        <m.header
             variants={headerVariant}
             initial="top"
             animate={(isHome && !scrolled) ? "top" : "scrolled"}
-            className="sticky top-0 z-50 backdrop-blur-md border-b border-gray-100 dark:border-gray-800"
+            className="sticky top-0 z-50 glass border-b border-gray-100 dark:border-gray-800"
         >
             <div className="container mx-auto px-4 flex items-center justify-between h-full">
                 <Link href="/" className="transition-transform duration-300 hover:scale-105">
-                    <motion.div
+                    <m.div
                         initial={isHome ? "hidden" : "visible"}
                         animate="visible"
                         variants={logoVariant}
@@ -40,7 +43,7 @@ export default function Header() {
                             className="h-12 w-auto object-contain"
                             priority
                         />
-                    </motion.div>
+                    </m.div>
                 </Link>
 
                 <nav className="hidden md:block">
@@ -66,6 +69,9 @@ export default function Header() {
                     </Link>
                 </div>
             </div>
-        </motion.header>
+        </m.header>
     );
-}
+});
+
+export default Header;
+

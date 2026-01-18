@@ -23,13 +23,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mai Inji — Afro-Fusion Delights",
     description: "FLAVOR THAT FEELS LIKE HOME.",
-    images: ["/logo/Main-logo"],
+    images: ["/brand/logo/primary.png"],
   },
   icons: {
-    icon: "/logo/Main-logo.png",
-    apple: "/logo/Main-logo.png",
+    icon: "/brand/logo/primary.png",
+    apple: "/brand/logo/primary.png",
   }
 };
+
+import { LazyMotion, domAnimation } from "framer-motion";
+
+// ... existing imports
 
 export default function RootLayout({
   children,
@@ -41,12 +45,14 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${inter.variable} font-sans antialiased`}
       >
-        <ErrorBoundary>
-          <Header />
-          <ToastProvider />
-          <main>{children}</main>
-          <Footer />
-        </ErrorBoundary>
+        <LazyMotion features={domAnimation}>
+          <ErrorBoundary>
+            <Header />
+            <ToastProvider />
+            <main>{children}</main>
+            <Footer />
+          </ErrorBoundary>
+        </LazyMotion>
       </body>
     </html>
   );
