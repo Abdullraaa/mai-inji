@@ -277,7 +277,7 @@ export const AdminDashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {loadingAnalytics ? (
                 [1, 2, 3, 4].map((i) => (
-                  <div key={i} className="glass rounded-[2rem] p-8 animate-pulse h-40" />
+                  <div key={i} className="glass rounded-4xl p-8 animate-pulse h-40" />
                 ))
               ) : salesData ? (
                 <>
@@ -349,7 +349,7 @@ export const AdminDashboard = () => {
         {activeTab === 'orders' && (
           <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
             {/* Control Bar */}
-            <div className="glass rounded-[2rem] p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="glass rounded-4xl p-8 flex flex-col md:flex-row justify-between items-center gap-6">
               <div>
                 <h2 className="text-sm font-black uppercase tracking-[0.3em] text-green-600 mb-1">Pipeline</h2>
                 <h3 className="text-2xl font-black tracking-tight">ORDER MANAGEMENT</h3>
@@ -401,7 +401,7 @@ export const AdminDashboard = () => {
                             #{order.order_number.slice(-4)}
                           </div>
                           <div>
-                            <p className="font-black text-2xl tracking-tight uppercase group-hover:text-green-600 transition-colors uppercase">{order.customer.name}</p>
+                            <p className="font-black text-2xl tracking-tight uppercase group-hover:text-green-600 transition-colors">{order.customer.name}</p>
                             <p className="text-[10px] font-bold text-gray-400 tracking-[0.2em] uppercase mt-2">
                               {order.customer.phone} <span className="mx-2">•</span> {formatDate(order.created_at)}
                             </p>
@@ -435,7 +435,7 @@ export const AdminDashboard = () => {
                   <button
                     onClick={() => fetchOrders(currentPage - 1, orderStatus)}
                     disabled={!pagination.has_prev}
-                    className="px-10 py-4 glass rounded-[1.5rem] disabled:opacity-30 text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all"
+                    className="px-10 py-4 glass rounded-3xl disabled:opacity-30 text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all"
                   >
                     ← PREV
                   </button>
@@ -445,7 +445,7 @@ export const AdminDashboard = () => {
                   <button
                     onClick={() => fetchOrders(currentPage + 1, orderStatus)}
                     disabled={!pagination.has_next}
-                    className="px-10 py-4 glass rounded-[1.5rem] disabled:opacity-30 text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all"
+                    className="px-10 py-4 glass rounded-3xl disabled:opacity-30 text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all"
                   >
                     NEXT →
                   </button>
@@ -601,7 +601,7 @@ export const AdminDashboard = () => {
 
       {/* Order Details Modal (Liquid Glass) */}
       {selectedOrder && (
-        <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-xl flex items-center justify-center p-6 z-[100] animate-in fade-in duration-300">
+        <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-xl flex items-center justify-center p-6 z-100 animate-in fade-in duration-300">
           <div className="glass rounded-[3rem] max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-[0_32px_128px_rgba(0,0,0,0.3)] animate-in zoom-in-95 duration-500">
             <div className="p-10 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center sticky top-0 bg-white/10 backdrop-blur-md z-10">
               <div>

@@ -274,7 +274,7 @@ export const CheckoutForm = ({ onSuccess }: CheckoutFormProps) => {
             <button
               type="submit"
               disabled={loading || items.length === 0}
-              className={`w-full py-6 rounded-[2rem] font-black uppercase tracking-[0.4em] text-xs text-white shadow-2xl transition-all active:scale-95 ${loading || items.length === 0
+              className={`w-full py-6 rounded-4xl font-black uppercase tracking-[0.4em] text-xs text-white shadow-2xl transition-all active:scale-95 ${loading || items.length === 0
                 ? 'bg-gray-400 cursor-not-allowed shadow-none'
                 : 'bg-green-600 hover:bg-green-700 shadow-green-600/20'
                 }`}
