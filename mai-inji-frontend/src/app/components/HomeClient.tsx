@@ -1,10 +1,15 @@
 "use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from 'next/link';
 import { m } from "framer-motion";
 import toast from "react-hot-toast";
 import Button from "./ui/Button";
-import { MAIN_FLYER, ABOUT_GIF, LOGO_COLLECTION, LOGO_SKEWERS } from "../../lib/assets";
+import { FLYER_HERO, ABOUT_GIF, LOGO_COLLECTION, LOGO_SKEWERS } from "../../lib/assets";
+import { menuService } from "@/services/menuService";
+import { MenuItem } from "@/types/api";
+import { useCart } from "@/store/cartStore";
 import {
     heroTextVariant,
     ctaPulseVariant,
@@ -12,67 +17,40 @@ import {
     menuCardVariant,
     menuItemHover,
     aboutImageVariant,
-    aboutTextVariant
+    aboutTextVariant,
+    fadeInUp
 } from "../../lib/variants";
 
-// Static data moved outside to prevent re-creation on every render
-const MENU_ITEMS_DATA = [
-    {
-        name: "Shawarma",
-        price: "₦2,500",
-        desc: "Authentic spiced chicken wrapped in toasted pita with our secret garlic sauce.",
-        tag: "Best Seller"
-    },
-    {
-        name: "Burger",
-        price: "₦3,500",
-        desc: "Double-patty artisan beef burger with caramelized onions and signature glaze.",
-        tag: "Premium"
-    },
-    {
-        name: "Zobo",
-        price: "₦800",
-        desc: "Refreshing chilled Hibiscus nectar infused with ginger and locally sourced cloves.",
-        tag: "Cooler"
-    },
-    {
-        name: "Tigernut",
-        price: "₦1,200",
-        desc: "Creamy Kunun Aya made from fresh tigernuts and dates. Energy in a bottle.",
-        tag: "Natural"
-    },
-    {
-        name: "Yoghurt",
-        price: "₦1,500",
-        desc: "Velvety smooth artisan yoghurt with a hint of honey and vanilla.",
-        tag: "Sweet"
-    },
-    {
-        name: "Arabian Tea",
-        price: "₦1,000",
-        desc: "Fragrant blend of Middle Eastern tea leaves, cardamon, and mint. Served hot.",
-        tag: "Classic"
-    },
-    {
-        name: "Masa",
-        price: "₦2,000",
-        desc: "Soft, fermented rice cakes pan-fried to golden perfection. Served with spicy syrup.",
-        tag: "Traditional"
-    },
-    {
-        name: "Suya",
-        price: "₦3,000",
-        desc: "Flame-grilled beef skewers coated in traditional Yaji spice. The soul of the street.",
-        tag: "Must Try"
-    }
-];
-
 export default function HomeClient() {
+    const [featuredItems, setFeaturedItems] = useState<MenuItem[]>([]);
+    const addItem = useCart(state => state.addItem);
 
-    const handleAddToCart = (item: string) => {
-        toast.success(`Added ${item} to cart`, {
+    useEffect(() => {
+        const fetchFeatured = async () => {
+            try {
+                // In soft launch, this fetches the static mock data immediately
+                const allItems = await menuService.getMenu();
+                // Select specific showcase items: Shawarma, Burger, Zobo, Yoghurt
+                // Indexes based on ID: 1=Shawarma, 2=Burger, 3=Zobo, 5=Yoghurt
+                const selection = allItems.filter(item => ['1', '2', '3', '5'].includes(item.id));
+                setFeaturedItems(selection.length > 0 ? selection : allItems.slice(0, 4));
+            } catch (error) {
+                console.error("Failed to load featured items", error);
+            }
+        };
+        fetchFeatured();
+    }, []);
+
+    const handleAddToCart = (item: MenuItem) => {
+        addItem(item, 1);
+        toast.success(`Added ${item.name} to cart`, {
             icon: '🛒',
             duration: 3000,
+            style: {
+                background: '#fff',
+                color: '#333',
+                border: '1px solid #eee',
+            }
         });
     };
 
@@ -80,12 +58,12 @@ export default function HomeClient() {
         toast.success("Welcome to the Collective ✨", {
             duration: 4000,
             style: {
-                background: '#16a34a',
+                background: '#9e2718', // Burgundy
                 color: '#fff',
             },
             iconTheme: {
                 primary: '#fff',
-                secondary: '#16a34a',
+                secondary: '#9e2718',
             },
         });
     };
@@ -96,7 +74,7 @@ export default function HomeClient() {
             <section className="relative w-full h-[85vh] overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src={MAIN_FLYER}
+                        src={FLYER_HERO}
                         alt="Mai Inji Culinary Experience"
                         fill
                         className="object-cover scale-105"
@@ -107,12 +85,12 @@ export default function HomeClient() {
                 </div>
 
                 <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center items-start">
-                    <div className="glass p-10 md:p-14 max-w-4xl">
+                    <div className="glass p-10 md:p-14 max-w-4xl border-white/10 bg-black/20 backdrop-blur-xl">
                         <m.span
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5, duration: 0.5 }}
-                            className="text-white bg-green-600/90 px-4 py-1 text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6"
+                            className="text-white bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-1 text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6 inline-block"
                         >
                             Now Serving Lafia
                         </m.span>
@@ -120,9 +98,9 @@ export default function HomeClient() {
                             variants={heroTextVariant}
                             initial="hidden"
                             animate="visible"
-                            className="text-gradient text-5xl md:text-7xl font-black tracking-tight mb-6 leading-tight max-w-4xl"
+                            className="text-transparent bg-clip-text bg-gradient-to-r from-white via-cream to-white text-5xl md:text-7xl font-black tracking-tight mb-6 leading-tight max-w-4xl"
                         >
-                            FLAVOR THAT <span className="text-gray-900 dark:text-white">FEELS LIKE</span> HOME.
+                            FLAVOR THAT <span className="text-orange">FEELS LIKE</span> HOME.
                         </m.h1>
                         <m.p
                             initial={{ opacity: 0 }}
@@ -139,7 +117,7 @@ export default function HomeClient() {
                                     initial="initial"
                                     animate="animate"
                                 >
-                                    <Button variant="primary" size="lg" className="bg-[var(--orange)] text-white hover:bg-[var(--burgundy)] border-none">Order Now</Button>
+                                    <Button variant="primary" size="lg">Order Now</Button>
                                 </m.div>
                             </Link>
                             <Link href="/about">
@@ -169,10 +147,27 @@ export default function HomeClient() {
             <section className="py-24 container mx-auto px-6" id="menu">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
                     <div>
-                        <h2 className="text-sm font-bold tracking-[0.3em] uppercase text-green-600 mb-4">The Selection</h2>
-                        <h3 className="text-5xl font-black text-gray-900 dark:text-white tracking-tight">CRAFTED FOR YOUR <br /> CRAVINGS</h3>
+                        <m.h2
+                            initial="hidden"
+                            whileInView="visible"
+                            variants={fadeInUp}
+                            className="text-sm font-bold tracking-[0.3em] uppercase text-green-600 mb-4"
+                        >
+                            The Selection
+                        </m.h2>
+                        <m.h3
+                            initial="hidden"
+                            whileInView="visible"
+                            variants={fadeInUp}
+                            className="text-5xl font-black text-gray-900 dark:text-white tracking-tight"
+                        >
+                            CRAFTED FOR YOUR <br /> CRAVINGS
+                        </m.h3>
                     </div>
-                    <Link href="/menu" className="text-green-600 font-bold hover:underline mb-2">View Full Menu →</Link>
+                    <Link href="/menu" className="group flex items-center gap-2 text-burgundy font-black uppercase tracking-widest text-xs hover:text-orange transition-colors">
+                        View Full Menu
+                        <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </Link>
                 </div>
 
                 <m.div
@@ -182,30 +177,49 @@ export default function HomeClient() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
                 >
-                    {MENU_ITEMS_DATA.map((item) => (
+                    {featuredItems.map((item) => (
                         <m.div
-                            key={item.name}
+                            key={item.id}
                             variants={menuCardVariant}
                             whileHover="hover"
                             whileTap="tap"
-                            className="group glass p-6 hover:scale-[1.01] transition-all duration-300 relative overflow-hidden"
+                            className="group glass p-0 hover:scale-[1.01] transition-all duration-300 relative overflow-hidden flex flex-col h-full"
                         >
-                            <m.div variants={menuItemHover} className="h-full flex flex-col">
-                                <div className="flex justify-between items-start mb-6">
-                                    <span className="px-4 py-1.5 bg-gray-50 dark:bg-gray-800 text-[10px] font-black uppercase tracking-widest text-gray-500 rounded-full group-hover:bg-green-600 group-hover:text-white transition-colors">
-                                        {item.tag}
+                            {/* Image Area */}
+                            <div className="h-48 relative overflow-hidden bg-gray-100">
+                                {item.image_url ? (
+                                    <Image
+                                        src={item.image_url}
+                                        alt={item.name}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        sizes="(max-width: 768px) 100vw, 25vw"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                                        <span className="text-gray-400 font-bold text-xs uppercase tracking-widest opacity-50">Image N/A</span>
+                                    </div>
+                                )}
+                                <div className="absolute top-4 left-4 z-10">
+                                    <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-gray-900 rounded-full shadow-lg">
+                                        Mai Inji Special
                                     </span>
-                                    <span className="text-xl font-black text-[var(--orange)]">{item.price}</span>
                                 </div>
-                                <h3 className="text-2xl font-black mb-4 text-gray-900 dark:text-white tracking-tight leading-none">{item.name}</h3>
-                                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8 flex-grow">
-                                    {item.desc}
+                            </div>
+
+                            <m.div variants={menuItemHover} className="p-6 flex flex-col flex-1">
+                                <div className="flex justify-between items-baseline mb-2">
+                                    <h3 className="text-xl font-black text-gray-900 dark:text-white tracking-tight leading-none uppercase">{item.name}</h3>
+                                    <span className="text-lg font-black italic text-burgundy">{item.price_formatted}</span>
+                                </div>
+                                <p className="text-gray-500 dark:text-gray-400 text-xs leading-relaxed mb-6 flex-grow line-clamp-3">
+                                    {item.description}
                                 </p>
                                 <Button
                                     variant="secondary"
                                     size="sm"
-                                    className="w-full bg-gray-50 dark:bg-gray-800 hover:bg-[var(--orange)] hover:text-white shadow-none"
-                                    onClick={() => handleAddToCart(item.name)}
+                                    className="w-full bg-gray-50 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-burgundy hover:to-orange hover:text-white shadow-none border-none py-3"
+                                    onClick={() => handleAddToCart(item)}
                                 >
                                     Add to Cart
                                 </Button>
@@ -214,12 +228,12 @@ export default function HomeClient() {
                     ))}
                 </m.div>
                 <p className="mt-12 text-center text-xs text-gray-400 italic">
-                    * All descriptions and prices are AI-generated placeholders for visual demonstration.
+                    * All descriptions and prices are just placeholders for visual demonstration.
                 </p>
             </section>
 
             {/* Enhanced Story Section with GIF */}
-            <section className="py-24 bg-green-600 dark:bg-green-900 relative overflow-hidden">
+            <section className="py-24 bg-linear-to-br from-burgundy to-orange relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-black/10 skew-x-12 translate-x-1/2 pointer-events-none" />
                 <div className="container mx-auto px-6 relative z-10">
                     <div className="flex flex-col md:flex-row items-center gap-16">

@@ -44,7 +44,7 @@ export default function MenuBrowser({ showSearch = true, showCategoryFilter = tr
   };
 
   const filteredItems = items.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase()) || 
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
     item.description.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -68,21 +68,21 @@ export default function MenuBrowser({ showSearch = true, showCategoryFilter = tr
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Search */}
       {showSearch && (
-        <div className="relative">
+        <div className="relative max-w-md mx-auto">
           <input
             type="text"
-            placeholder="Search menu items..."
+            placeholder="Search our curated menu..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="input-field w-full"
+            className="w-full pl-6 pr-12 py-4 bg-white/50 backdrop-blur-md border border-white/40 rounded-full focus:outline-none focus:ring-2 focus:ring-burgundy/20 font-medium text-gray-900 placeholder:text-gray-400 transition-all shadow-sm"
           />
           {search && (
             <button
               onClick={() => setSearch('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-burgundy transition-colors"
             >
               ✕
             </button>
@@ -92,17 +92,20 @@ export default function MenuBrowser({ showSearch = true, showCategoryFilter = tr
 
       {/* Results */}
       {filteredItems.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-600">
+        <div className="text-center py-24 glass">
+          <p className="text-gray-400 font-black uppercase tracking-widest text-[10px]">
             {search ? 'No items match your search' : 'No menu items available'}
           </p>
         </div>
       ) : (
-        <>
-          <p className="text-sm text-gray-600">
-            {filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''} available
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="space-y-8">
+          <div className="flex justify-between items-center px-2">
+            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">
+              Collection ({filteredItems.length})
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredItems.map((item) => (
               <MenuItemCard
                 key={item.id}
@@ -111,7 +114,11 @@ export default function MenuBrowser({ showSearch = true, showCategoryFilter = tr
               />
             ))}
           </div>
-        </>
+
+          <div className="text-center py-6 opacity-60">
+            <p className="text-[10px] uppercase tracking-widest text-gray-400">* All descriptions and prices are AI-generated placeholders for visual demonstration.</p>
+          </div>
+        </div>
       )}
     </div>
   );

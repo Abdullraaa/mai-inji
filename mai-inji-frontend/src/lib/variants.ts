@@ -1,146 +1,155 @@
-// src/lib/variants.ts
-// Centralized Framer Motion variants for Mai Inji
-import { organicEasing, timings } from "@/lib/animation";
-import { Variants } from "framer-motion";
+import { Variants } from 'framer-motion';
+import { EASE, DURATION, STAGGER } from './animation';
 
-/** Primary logo entrance (home only) */
-export const logoVariant: Variants = {
-    hidden: { opacity: 0, y: 12, scale: 0.96 },
+export const buttonHover: Variants = {
+    hover: {
+        scale: 1.05,
+        transition: { type: "spring", stiffness: 400, damping: 10 }
+    },
+    tap: { scale: 0.95 }
+};
+
+export const fadeOnly: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { ease: EASE, duration: DURATION.normal }
+    },
+};
+
+export const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
+        transition: { ease: EASE, duration: DURATION.normal }
+    },
+};
+
+export const fadeInUpSlow: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { ease: EASE, duration: DURATION.slow }
+    },
+};
+
+export const containerStagger: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: STAGGER.normal,
+        },
+    },
+};
+
+export const scaleIn: Variants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+        opacity: 1,
         scale: 1,
-        transition: { delay: 0.2, duration: timings.hero, ease: organicEasing },
+        transition: { ease: EASE, duration: DURATION.normal }
     },
 };
 
-/** Secondary logos – slow ambient motion */
-export const secondaryLogoVariant: Variants = {
-    animate: {
-        rotate: [0, 360],
-        opacity: [0.04, 0.06],
-        transition: { repeat: Infinity, duration: 50, ease: "linear" },
-    },
+export const slideInRight: Variants = {
+    hidden: { x: 20, opacity: 0 },
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: { ease: EASE, duration: DURATION.normal }
+    }
 };
 
-/** Hero text staggered after logo */
+// Header Variants
+export const headerVariant: Variants = {
+    top: { y: 0, backgroundColor: 'rgba(255, 255, 255, 0)', borderBottomColor: 'rgba(255, 255, 255, 0)', height: '6rem' },
+    scrolled: {
+        y: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+        backdropFilter: 'blur(12px)',
+        height: '4rem',
+        transition: { ease: EASE, duration: DURATION.normal }
+    }
+};
+
+export const logoVariant: Variants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { ease: EASE, duration: DURATION.normal } }
+};
+
+// Hero Variants
 export const heroTextVariant: Variants = {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 50 },
     visible: {
         opacity: 1,
         y: 0,
-        transition: { delay: 0.4, duration: timings.section, ease: organicEasing },
-    },
+        transition: { ease: EASE, duration: DURATION.slow, delay: 0.2 }
+    }
 };
 
-/** CTA pulse on initial load */
 export const ctaPulseVariant: Variants = {
     initial: { scale: 1 },
     animate: {
-        scale: [1, 1.04, 1],
-        transition: { duration: 0.3, ease: organicEasing },
-    },
+        scale: [1, 1.05, 1],
+        transition: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+    }
 };
 
-/** Menu card container for stagger */
+// Menu Card Variants
 export const menuCardContainer: Variants = {
-    visible: { transition: { staggerChildren: 0.08 } },
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.1 }
+    }
 };
+
 export const menuCardVariant: Variants = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: timings.micro, ease: organicEasing },
+        transition: { ease: EASE, duration: DURATION.normal }
     },
+    hover: { y: -5, boxShadow: "0px 10px 30px rgba(0,0,0,0.1)" },
+    tap: { scale: 0.98 }
 };
 
-/** About section image & text */
-export const aboutImageVariant: Variants = {
-    hidden: { opacity: 0, scale: 0.98 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        boxShadow: "0 0 20px rgba(255,255,255,0.2)",
-        transition: { duration: timings.section, ease: organicEasing },
-    },
+export const menuItemHover: Variants = {
+    hover: { y: -2, transition: { ease: EASE, duration: 0.2 } }
 };
-export const aboutTextVariant: Variants = {
-    hidden: { opacity: 0, x: -20 },
+
+// About Section Variants
+export const aboutImageVariant: Variants = {
+    hidden: { opacity: 0, x: -50, rotate: -2 },
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: timings.section, ease: organicEasing },
-    },
+        rotate: 0,
+        transition: { ease: EASE, duration: DURATION.slow }
+    }
 };
 
-/** Menu item hover / tap */
-export const menuItemHover: Variants = {
-    hover: {
-        y: -6,
-        scale: 1.03,
-        boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-        transition: { duration: timings.micro, ease: organicEasing },
-    },
-    tap: { scale: 0.98, transition: { duration: 0.1 } },
-};
-
-/** Header scroll states */
-export const headerVariant: Variants = {
-    top: { height: "4rem", background: "rgba(255,255,255,0)", boxShadow: "none" },
-    scrolled: {
-        height: "3rem",
-        background: "rgba(255,255,255,0.9)",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        transition: { duration: 0.2, ease: organicEasing },
-    },
-};
-
-/** Standard button hover */
-export const buttonHover: Variants = {
-    hover: {
-        backgroundColor: "var(--color-primary)",
-        x: 3,
-        transition: { duration: 0.14, ease: organicEasing },
-    },
-};
-
-/** Primary CTA shimmer (once) */
-export const primaryCtaShimmer: Variants = {
-    initial: { backgroundPosition: "-200% 0" },
-    animate: {
-        backgroundPosition: ["-200% 0", "200% 0"],
-        transition: { duration: 1.2, ease: organicEasing },
-    },
-};
-
-/** Cart add fly‑to‑icon */
-export const addToCartFly: Variants = {
-    hidden: { opacity: 0, scale: 0.5, x: 0, y: 0 },
+export const aboutTextVariant: Variants = {
+    hidden: { opacity: 0, x: 50 },
     visible: {
         opacity: 1,
-        scale: 1,
-        x: 120,
-        y: -80,
-        transition: { duration: 0.4, ease: organicEasing },
-    },
+        x: 0,
+        transition: { ease: EASE, duration: DURATION.slow, delay: 0.2 }
+    }
 };
 
-/** Global loading steam lines */
-export const steamLineVariant: Variants = {
+export const secondaryLogoVariant: Variants = {
     animate: {
-        y: [0, -10, 0],
-        opacity: [0.4, 0.8, 0.4],
-        transition: { repeat: Infinity, duration: 1.5, ease: organicEasing },
-    },
-};
-
-/** Empty‑state text */
-export const emptyTextVariant: Variants = {
-    hidden: { opacity: 0, letterSpacing: "0.5em" },
-    visible: {
-        opacity: 1,
-        letterSpacing: "0em",
-        transition: { duration: timings.section, ease: organicEasing },
-    },
+        rotate: 360,
+        transition: {
+            duration: 120,
+            repeat: Infinity,
+            ease: "linear"
+        }
+    }
 };

@@ -1,11 +1,14 @@
-// src/lib/animation.ts
-// Centralized animation constants for Mai Inji
-import { Easing } from "framer-motion";
+export const EASE = [0.16, 1, 0.3, 1] as const; // --ease-organic
 
-export const organicEasing: Easing = [0.16, 1, 0.3, 1];
-export const timings = {
-    micro: 0.12, // 120 ms
-    microMax: 0.18, // 180 ms
-    section: 0.45, // 400‑600 ms average
-    hero: 0.8, // 800 ms for logo entrance
+export const DURATION = {
+    fast: 0.3,
+    normal: 0.5,
+    slow: 0.8,
+    long: 1.2,
+};
+
+export const STAGGER = {
+    fast: 0.05,
+    normal: 0.1,
+    slow: 0.2,
 };

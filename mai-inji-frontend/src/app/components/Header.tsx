@@ -61,11 +61,10 @@ const Header = memo(function Header() {
                 </nav>
 
                 <div className="flex items-center gap-4">
-                    <Link
-                        href="/menu"
-                        className="px-6 py-2 bg-green-600 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-green-700 transition-all shadow-lg shadow-green-600/20"
-                    >
-                        Order Now
+                    <Link href="/menu">
+                        <Button variant="primary" size="md">
+                            Order Now
+                        </Button>
                     </Link>
                 </div>
             </div>

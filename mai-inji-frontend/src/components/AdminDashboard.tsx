@@ -651,7 +651,7 @@ export const AdminDashboard = () => {
               </div>
 
               {/* Financial Recap */}
-              <div className="bg-green-600/5 rounded-[2rem] p-8 border border-green-600/10">
+              <div className="bg-green-600/5 rounded-4xl p-8 border border-green-600/10">
                 <div className="flex justify-between items-center">
                   <span className="text-[10px] font-black uppercase tracking-widest text-green-700">Total Settlement Value</span>
                   <span className="text-4xl font-black text-green-600 italic">{formatCurrency(selectedOrder.total)}</span>

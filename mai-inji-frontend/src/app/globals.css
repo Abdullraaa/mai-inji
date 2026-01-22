@@ -7,14 +7,26 @@
   --color-orange: #f97300;
   --color-darkred: #800000;
 
+  --color-glass-bg: rgba(255, 255, 255, 0.26);
+  --color-glass-border: rgba(255, 255, 255, 0.34);
+
   --ease-organic: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
 }
 
 :root {
-  --cream: #e3d2c1;
-  --burgundy: #9e2718;
-  --orange: #f97300;
-  --darkred: #800000;
   --font-sans: var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui;
 }
 
@@ -22,15 +34,17 @@ body {
   background:
     radial-gradient(1200px 600px at 10% 0%, rgba(249, 115, 0, 0.12), transparent 55%),
     radial-gradient(900px 500px at 90% 20%, rgba(158, 39, 24, 0.14), transparent 60%),
-    var(--cream);
+    var(--color-cream);
   color: #1f1f1f;
   font-family: var(--font-sans);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.26);
-  border: 1px solid rgba(255, 255, 255, 0.34);
+  background: var(--color-glass-bg);
+  border: 1px solid var(--color-glass-border);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -38,7 +52,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, var(--burgundy), var(--orange));
+  background: linear-gradient(90deg, var(--color-burgundy), var(--color-orange));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

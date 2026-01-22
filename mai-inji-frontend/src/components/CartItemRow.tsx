@@ -15,23 +15,23 @@ const CartItemRow = memo(({ item, showSubtotals }: CartItemRowProps) => {
     const removeItem = useCart((state) => state.removeItem);
 
     return (
-        <div className="card p-4 flex items-center justify-between">
+        <div className="glass p-6 md:p-8 flex items-center justify-between group hover:border-green-600/30 transition-colors">
             <div className="flex-1">
-                <h3 className="font-semibold text-gray-900">{item.menu_item_name}</h3>
-                <p className="text-sm text-gray-600">{formatCurrency(item.unit_price)} each</p>
+                <h3 className="font-black text-gray-900 uppercase tracking-tight text-lg">{item.menu_item_name}</h3>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mt-1">{formatCurrency(item.unit_price)} <span className="text-gray-300 mx-2">|</span> UNIT</p>
                 {showSubtotals && (
-                    <p className="text-sm font-medium text-green-600 mt-1">
-                        Subtotal: {formatCurrency(item.unit_price * item.quantity)}
+                    <p className="text-sm font-black text-green-600 mt-2 italic">
+                        {formatCurrency(item.unit_price * item.quantity)}
                     </p>
                 )}
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
                 {/* Quantity Control */}
-                <div className="flex items-center border border-gray-300 rounded-lg bg-white">
+                <div className="flex items-center bg-gray-50 rounded-full px-1 shadow-inner">
                     <button
                         onClick={() => updateQuantity(item.menu_item_id, item.quantity - 1)}
-                        className="px-2 py-1 text-gray-600 hover:bg-gray-100"
+                        className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-900 font-bold transition-colors"
                         aria-label="Decrease quantity"
                     >
                         −
@@ -44,12 +44,12 @@ const CartItemRow = memo(({ item, showSubtotals }: CartItemRowProps) => {
                             const newQty = parseInt(e.target.value) || 1;
                             updateQuantity(item.menu_item_id, newQty);
                         }}
-                        className="w-10 text-center border-0 focus:outline-none"
+                        className="w-8 text-center bg-transparent border-none text-xs font-black focus:ring-0 p-0"
                         aria-label="Quantity"
                     />
                     <button
                         onClick={() => updateQuantity(item.menu_item_id, item.quantity + 1)}
-                        className="px-2 py-1 text-gray-600 hover:bg-gray-100"
+                        className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-900 font-bold transition-colors"
                         aria-label="Increase quantity"
                     >
                         +
@@ -59,9 +59,10 @@ const CartItemRow = memo(({ item, showSubtotals }: CartItemRowProps) => {
                 {/* Remove Button */}
                 <button
                     onClick={() => removeItem(item.menu_item_id)}
-                    className="text-red-600 hover:text-red-700 font-medium px-3 py-1"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-gray-300 hover:bg-red-50 hover:text-red-500 transition-all"
+                    aria-label="Remove item"
                 >
-                    Remove
+                    ✕
                 </button>
             </div>
         </div>

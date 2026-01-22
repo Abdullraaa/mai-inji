@@ -23,10 +23,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         };
 
         const variantStyles = {
-            primary: "bg-green-600 text-white rounded-2xl hover:bg-green-700 shadow-xl shadow-green-600/20 active:scale-95",
+            primary: "bg-gradient-to-r from-burgundy to-orange text-white rounded-2xl hover:brightness-110 shadow-xl shadow-orange-500/20 active:scale-95 border border-white/10",
             secondary: "bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-2xl hover:opacity-90 shadow-xl active:scale-95",
-            outline: "bg-transparent border border-green-600 text-green-600 rounded-2xl hover:bg-green-50 dark:hover:bg-green-900/10 active:scale-95",
-            ghost: "bg-transparent text-gray-500 hover:text-green-600 active:scale-95",
+            outline: "bg-transparent border border-burgundy text-burgundy rounded-2xl hover:bg-burgundy/5 active:scale-95",
+            ghost: "bg-transparent text-gray-500 hover:text-burgundy active:scale-95",
         };
 
         return (

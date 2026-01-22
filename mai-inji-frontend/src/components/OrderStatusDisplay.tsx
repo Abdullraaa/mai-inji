@@ -20,32 +20,35 @@ const getStatusColor = (
   bg: string;
   text: string;
   icon: string;
+  border: string;
 } => {
   const statusMap: Record<
     OrderStatusEnum,
-    { bg: string; text: string; icon: string }
+    { bg: string; text: string; icon: string; border: string }
   > = {
-    [OrderStatusEnum.CREATED]: { bg: 'bg-gray-100', text: 'text-gray-700', icon: '⏱️' },
-    [OrderStatusEnum.PAYMENT_PENDING]: { bg: 'bg-yellow-100', text: 'text-yellow-700', icon: '💳' },
-    [OrderStatusEnum.PAID]: { bg: 'bg-blue-100', text: 'text-blue-700', icon: '✓' },
-    [OrderStatusEnum.REJECTED]: { bg: 'bg-red-100', text: 'text-red-700', icon: '✗' },
-    [OrderStatusEnum.ACCEPTED]: { bg: 'bg-indigo-100', text: 'text-indigo-700', icon: '👨‍🍳' },
-    [OrderStatusEnum.PREPARING]: { bg: 'bg-purple-100', text: 'text-purple-700', icon: '🔪' },
-    [OrderStatusEnum.READY]: { bg: 'bg-green-100', text: 'text-green-700', icon: '✓' },
+    [OrderStatusEnum.CREATED]: { bg: 'bg-gray-50', text: 'text-gray-600', icon: '⏱️', border: 'border-gray-200' },
+    [OrderStatusEnum.PAYMENT_PENDING]: { bg: 'bg-orange-50', text: 'text-orange-700', icon: '💳', border: 'border-orange-200' },
+    [OrderStatusEnum.PAID]: { bg: 'bg-blue-50', text: 'text-blue-700', icon: '✓', border: 'border-blue-200' },
+    [OrderStatusEnum.REJECTED]: { bg: 'bg-red-50', text: 'text-red-700', icon: '✗', border: 'border-red-200' },
+    [OrderStatusEnum.ACCEPTED]: { bg: 'bg-indigo-50', text: 'text-indigo-700', icon: '👨‍🍳', border: 'border-indigo-200' },
+    [OrderStatusEnum.PREPARING]: { bg: 'bg-purple-50', text: 'text-purple-700', icon: '🔪', border: 'border-purple-200' },
+    [OrderStatusEnum.READY]: { bg: 'bg-green-50', text: 'text-green-700', icon: '✓', border: 'border-green-200' },
     [OrderStatusEnum.READY_FOR_PICKUP]: {
-      bg: 'bg-green-100',
+      bg: 'bg-green-50',
       text: 'text-green-700',
       icon: '📦',
+      border: 'border-green-200'
     },
     [OrderStatusEnum.OUT_FOR_DELIVERY]: {
-      bg: 'bg-cyan-100',
+      bg: 'bg-cyan-50',
       text: 'text-cyan-700',
       icon: '🚗',
+      border: 'border-cyan-200'
     },
-    [OrderStatusEnum.COMPLETED]: { bg: 'bg-green-100', text: 'text-green-700', icon: '🎉' },
-    [OrderStatusEnum.CANCELLED]: { bg: 'bg-red-100', text: 'text-red-700', icon: '🚫' },
-    [OrderStatusEnum.REFUNDING]: { bg: 'bg-orange-100', text: 'text-orange-700', icon: '↩️' },
-    [OrderStatusEnum.REFUNDED]: { bg: 'bg-orange-100', text: 'text-orange-700', icon: '↩️' },
+    [OrderStatusEnum.COMPLETED]: { bg: 'bg-green-50', text: 'text-green-700', icon: '🎉', border: 'border-green-200' },
+    [OrderStatusEnum.CANCELLED]: { bg: 'bg-red-50', text: 'text-red-700', icon: '🚫', border: 'border-red-200' },
+    [OrderStatusEnum.REFUNDING]: { bg: 'bg-orange-50', text: 'text-orange-700', icon: '↩️', border: 'border-orange-200' },
+    [OrderStatusEnum.REFUNDED]: { bg: 'bg-orange-50', text: 'text-orange-700', icon: '↩️', border: 'border-orange-200' },
   };
 
   return statusMap[status] || statusMap[OrderStatusEnum.CREATED];
@@ -167,12 +170,12 @@ export const OrderStatusDisplay = ({ orderId, onStatusChange }: OrderStatusDispl
       <h1 className="text-3xl font-bold mb-2">Order Status</h1>
       <p className="text-gray-600 mb-6">Order #{order.order_number}</p>
 
-      <div className={`${statusColor.bg} ${statusColor.text} rounded-lg p-6 mb-8`}>
-        <div className="flex items-center gap-3 mb-2">
-          <span className="text-3xl">{statusColor.icon}</span>
-          <h2 className="text-2xl font-bold">{statusLabel}</h2>
+      <div className={`glass border ${statusColor.border} ${statusColor.bg} bg-opacity-50 p-8 rounded-[2rem] mb-10 flex flex-col items-center text-center shadow-none`}>
+        <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mb-6 shadow-xl text-4xl">
+          {statusColor.icon}
         </div>
-        <p className="text-sm opacity-75">
+        <h2 className={`text-3xl font-black uppercase tracking-tight ${statusColor.text} mb-2`}>{statusLabel}</h2>
+        <p className="text-xs font-bold uppercase tracking-widest opacity-60">
           Last updated: {formatDate(new Date().toISOString())}
         </p>
       </div>
@@ -264,9 +267,8 @@ export const OrderStatusDisplay = ({ orderId, onStatusChange }: OrderStatusDispl
           <div>
             <span className="text-gray-600">Status:</span>
             <span
-              className={`ml-2 font-medium ${
-                order.payment.status === 'SUCCESS' ? 'text-green-600' : 'text-yellow-600'
-              }`}
+              className={`ml-2 font-medium ${order.payment.status === 'SUCCESS' ? 'text-green-600' : 'text-yellow-600'
+                }`}
             >
               {order.payment.status}
             </span>

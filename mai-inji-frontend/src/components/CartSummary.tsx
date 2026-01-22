@@ -36,18 +36,18 @@ export default function CartSummary({ minimal = false }: CartSummaryProps) {
   }
 
   return (
-    <div className="card p-4 space-y-3">
+    <div className="glass p-8 space-y-6 sticky top-24">
       <div className="flex justify-between items-center">
-        <span className="text-gray-600">Items</span>
-        <span className="font-semibold">{itemCount}</span>
+        <span className="text-xs font-black uppercase tracking-widest text-gray-400">Total Items</span>
+        <span className="font-black text-lg">{itemCount}</span>
       </div>
-      <div className="border-t border-gray-200 pt-3 flex justify-between items-center">
-        <span className="text-lg font-bold">Total</span>
-        <span className="text-2xl font-bold text-green-600">{formatCurrency(total)}</span>
+      <div className="border-t border-gray-100 dark:border-gray-800 pt-6 flex justify-between items-end">
+        <span className="text-sm font-black uppercase tracking-widest text-gray-900">Estimated Total</span>
+        <span className="text-4xl font-black italic text-burgundy tracking-tighter">{formatCurrency(total)}</span>
       </div>
-      <Link href="/checkout" className="w-full">
-        <Button variant="primary" size="lg" className="w-full" onClick={handleCheckout}>
-          Proceed to Checkout
+      <Link href="/checkout" className="w-full block pt-4">
+        <Button variant="primary" size="lg" className="w-full py-5! text-sm" onClick={handleCheckout}>
+          SECURE CHECKOUT
         </Button>
       </Link>
     </div>
