@@ -196,7 +196,12 @@ export default function HomeClient() {
                                     />
                                 ) : (
                                     <div className="w-full h-full bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                                        <span className="text-gray-400 font-bold text-xs uppercase tracking-widest opacity-50">Image N/A</span>
+                                        <Image
+                                            src="/menu/placeholder.svg"
+                                            alt="Placeholder"
+                                            fill
+                                            className="object-contain opacity-70"
+                                        />
                                     </div>
                                 )}
                                 <div className="absolute top-4 left-4 z-10">
