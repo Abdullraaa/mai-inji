@@ -72,13 +72,11 @@ export default function HomeClient() {
             {/* Hero Section - Celebratory GIF */}
             <section className="relative w-full h-[85vh] overflow-hidden">
                 <div className="absolute inset-0 z-0">
-                    <Image
+                    {/* Use a plain IMG for the hero GIF to avoid Next/Image optimization issues on some hosts */}
+                    <img
                         src={FLYER_HERO}
                         alt="Mai Inji Culinary Experience"
-                        fill
-                        className="object-cover scale-105"
-                        unoptimized={true} // Priority GIF should not be optimized
-                        priority
+                        className="object-cover w-full h-full scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
                 </div>
@@ -91,7 +89,7 @@ export default function HomeClient() {
                             transition={{ delay: 0.5, duration: 0.5 }}
                             className="text-white bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-1 text-xs font-bold tracking-[0.2em] uppercase rounded-full mb-6 inline-block"
                         >
-                            Now Serving Lafia
+                            Lafia 🍵
                         </m.span>
                         <m.h1
                             variants={heroTextVariant}
