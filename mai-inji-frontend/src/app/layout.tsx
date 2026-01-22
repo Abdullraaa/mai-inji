@@ -42,6 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="icon" href="/brand/logo/primary.png" />
+        <link rel="apple-touch-icon" href="/brand/logo/primary.png" />
+      </head>
       <body
         className={`${outfit.variable} ${inter.variable} font-sans antialiased`}
       >
