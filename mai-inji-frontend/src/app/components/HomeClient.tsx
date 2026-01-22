@@ -30,10 +30,9 @@ export default function HomeClient() {
             try {
                 // In soft launch, this fetches the static mock data immediately
                 const allItems = await menuService.getMenu();
-                // Select specific showcase items: Shawarma, Burger, Zobo, Yoghurt
-                // Indexes based on ID: 1=Shawarma, 2=Burger, 3=Zobo, 5=Yoghurt
-                const selection = allItems.filter(item => ['1', '2', '3', '5'].includes(item.id));
-                setFeaturedItems(selection.length > 0 ? selection : allItems.slice(0, 4));
+                // Display all items on the homepage selection.
+                // Keep placeholder handling for items without images (rendered below).
+                setFeaturedItems(allItems);
             } catch (error) {
                 console.error("Failed to load featured items", error);
             }
