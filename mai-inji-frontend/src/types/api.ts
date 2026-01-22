@@ -9,6 +9,7 @@ export interface MenuItem {
   price: number; // in kobo (1 NGN = 100 kobo)
   price_formatted: string; // e.g., "₦2,500"
   image_url: string;
+  label?: string; // UI badge label (e.g., "Best Seller", "Signature")
   is_available: boolean;
   created_at: string; // ISO 8601
 }

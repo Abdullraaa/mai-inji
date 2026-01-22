@@ -129,6 +129,28 @@ export default function HomeClient() {
                 </div>
             </section>
 
+            {/* Mission / Vision — Brand Philosophy */}
+            <section className="py-16 container mx-auto px-6">
+                <div className="glass rounded-[2rem] p-10 max-w-4xl mx-auto text-center">
+                    <h4 className="text-sm font-black uppercase tracking-[0.4em] text-green-600 mb-4">Our Promise</h4>
+                    <p className="text-lg text-gray-700 dark:text-gray-200 mb-6 font-medium">Food as comfort — northern hospitality, street flavors, and careful craft in every bite.</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+                        <div>
+                            <h5 className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white mb-2">Mission</h5>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">Serve familiar flavors with care, so every meal feels like coming home.</p>
+                        </div>
+                        <div>
+                            <h5 className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white mb-2">Vision</h5>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">Elevate street-born recipes into thoughtful, modern plates.</p>
+                        </div>
+                        <div>
+                            <h5 className="text-xs font-black uppercase tracking-widest text-gray-900 dark:text-white mb-2">Promise</h5>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">Hospitality first — we craft, not rush, and we feed with warmth.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Brand Marquee using secondary logos */}
             <section className="py-12 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-hidden relative">
                 <div className="flex animate-scroll whitespace-nowrap items-center will-change-transform">
@@ -204,11 +226,13 @@ export default function HomeClient() {
                                         />
                                     </div>
                                 )}
-                                <div className="absolute top-4 left-4 z-10">
-                                    <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest text-gray-900 rounded-full shadow-lg">
-                                        Mai Inji Special
-                                    </span>
-                                </div>
+                                {item.label && (
+                                    <div className="absolute top-4 left-4 z-10">
+                                        <span className="px-3 py-1 bg-white/80 backdrop-blur-md text-[10px] font-black uppercase tracking-wide text-gray-900 rounded-full shadow-sm">
+                                            {item.label}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
 
                             <m.div variants={menuItemHover} className="p-6 flex flex-col flex-1">

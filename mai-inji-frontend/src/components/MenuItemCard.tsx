@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { MenuItem } from '@/types/api';
 import { formatCurrency } from '@/lib/utils';
 import Image from 'next/image';
@@ -11,7 +11,7 @@ interface MenuItemCardProps {
   onAddToCart: (item: MenuItem, quantity: number) => void;
 }
 
-export default function MenuItemCard({ item, onAddToCart }: MenuItemCardProps) {
+function MenuItemCard({ item, onAddToCart }: MenuItemCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   const handleAdd = () => {
@@ -23,6 +23,13 @@ export default function MenuItemCard({ item, onAddToCart }: MenuItemCardProps) {
     <div className="glass overflow-hidden flex flex-col hover:translate-y-[-4px] transition-transform duration-500">
       {/* Image */}
       <div className="relative h-48 bg-gray-100 overflow-hidden group">
+        {item.label && (
+          <div className="absolute top-3 left-3 z-20">
+            <span className="px-3 py-1 bg-white/80 backdrop-blur-md text-[10px] font-black uppercase tracking-wide text-gray-900 rounded-full shadow-sm">
+              {item.label}
+            </span>
+          </div>
+        )}
         {item.image_url ? (
           <Image
             src={item.image_url}
@@ -82,10 +89,11 @@ export default function MenuItemCard({ item, onAddToCart }: MenuItemCardProps) {
                 </button>
               </div>
               <Button
-                onClick={handleAdd}
                 variant="primary"
-                className="flex-1 !py-3 !text-[10px]"
                 size="sm"
+                className="w-full py-3! text-[10px]! font-black tracking-widest uppercase"
+                onClick={handleAdd}
+                disabled={!item.is_available}
               >
                 ADD TO TRAY
               </Button>
@@ -103,3 +111,6 @@ export default function MenuItemCard({ item, onAddToCart }: MenuItemCardProps) {
     </div>
   );
 }
+
+// Optimization: Prevent re-renders unless item or availability changes
+export default memo(MenuItemCard);
